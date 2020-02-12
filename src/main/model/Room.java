@@ -15,7 +15,7 @@ public class Room {
 
 
     //EFFECTS: creates a new Room that does not need maintenance
-    Room(String name, int id, int floor) {
+    public Room(String name, int id, int floor) {
         this.name = name;
         this.id = id;
         this.floor = floor;
@@ -23,22 +23,22 @@ public class Room {
         this.requiresMaintenance = false;
     }
 
-    //REQUIRES: time is integer between 0 and 24
     //EFFECTS: checks if the room is booked at a certain time (in hours) by comparing the
     // starting and ending times of currently current bookings in the schedule with the
     // the dateToCheck
     public Boolean isBookedAtTime(Date checkDateStartTime, Booking checkBook) {
         Boolean result = false;
-
+        //get the end time by adding duration
         Date checkDateEndTime = checkDateStartTime.addHours(checkBook.getTime(), checkBook.getDuration());
-
+        //check each date
         for (Date dateStartTime : schedule.keySet()) {
             Booking booking = schedule.get(dateStartTime);
+            //get the end time by adding duration
             Date dateEndTime =  dateStartTime.addHours(booking.getTime(), booking.getDuration());
-
+            //if the date to check starts during a booked time
             Boolean startsDuringBookedTime = !dateStartTime.isAfter(checkDateStartTime)
                     && dateEndTime.isAfter(checkDateStartTime);
-
+            //if the date to check starts during a booked time
             Boolean endsDuringBookedTime = !dateStartTime.isAfter(checkDateEndTime)
                     && dateEndTime.isAfter(checkDateEndTime);
 
@@ -46,8 +46,18 @@ public class Room {
             // then the time has already been booked
             if (startsDuringBookedTime || endsDuringBookedTime) {
                 result = true;
-            }
+            } else if (dateEndTime == checkDateStartTime) {
+                //if it starts on the end day, check the hours
+                if ((booking.getTime() + booking.getDuration()) % 24 > checkBook.getTime()) {
+                    result = true;
+                }
 
+            } else if (dateStartTime == checkDateEndTime) {
+                // if it ends on a start day, check the hours
+                if ((checkBook.getTime() + checkBook.getDuration() % 24 > booking.getTime())) {
+                    result = true;
+                }
+            }
         }
         return result;
     }
@@ -58,7 +68,7 @@ public class Room {
         Booking newBook = new Booking(time, duration, booker);
         Date newDate = new Date(month, day, year);
         if (!isBookedAtTime(newDate, newBook)) {
-            schedule.put(newDate, newBook);
+            this.schedule.put(newDate, newBook);
             return true;
         }
         return false;
@@ -84,7 +94,11 @@ public class Room {
 
 
     public Boolean needsMaintenceStatus() {
-        return requiresMaintenance;
+        return this.requiresMaintenance;
+    }
+
+    public LinkedHashMap<Date, Booking> getSchedule() {
+        return this.schedule;
     }
 
 

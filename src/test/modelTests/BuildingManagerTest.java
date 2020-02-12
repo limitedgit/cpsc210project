@@ -1,4 +1,4 @@
-package uiTests;
+package modelTests;
 
 public class BuildingManagerTest {
 }

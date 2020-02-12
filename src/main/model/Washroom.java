@@ -1,8 +1,8 @@
 package model;
 
-//a class that describes very special room that cannot be booked
+//a class that describes a washroom that cannot be booked
 public class Washroom extends Room {
-    @Override
+
     Washroom(String name, int id, int floor) {
         super(name, id, floor);
     }

@@ -49,8 +49,8 @@ public class Date {
                 day -= calender.get((month % 12 + addMonths % 12) % 12);
                 addMonths += 1;
             }
-            this.day = day;
         }
+        this.day = day;
         return addMonths; //return the amount of add Months
     }
 
@@ -73,10 +73,11 @@ public class Date {
   // returns the new date
     public Date addHours(int startTime, int duration) {
         int addDays = 0;
-        Date newDay = this;
+        Date newDay = new Date(this.month, this.day, this.year);
         if (startTime + duration > 24) {
             addDays = (startTime + duration) / 24;
-            newDay.year = year + newDay.calcMonth(month + newDay.calcDays(day + addDays, month));
+            newDay.year = newDay.year
+                + newDay.calcMonth(newDay.month + newDay.calcDays(newDay.day + addDays, newDay.month));
         }
         return newDay;
     }
@@ -84,13 +85,13 @@ public class Date {
   //EFFECTS: compares this Date to a given Date and returns true if the
   // given Date happens after this Date
     public Boolean isAfter(Date date) {
-        if (this.getYear() < date.getYear()) {
+        if (this.year > date.getYear()) {
             return true;
-        } else if (this.getYear() == date.getYear()) {
-            if (this.getMonth() < date.getMonth()) {
+        } else if (this.year == date.getYear()) {
+            if (this.month > date.getMonth()) {
                 return true;
-            } else if (this.getMonth() == date.getMonth()) {
-                if (this.getDay() < date.getDay()) {
+            } else if (this.month == date.getMonth()) {
+                if (this.day > date.getDay()) {
                     return true;
                 }
             }

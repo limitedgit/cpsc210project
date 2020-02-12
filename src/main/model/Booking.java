@@ -10,7 +10,7 @@ public class Booking {
     private String booker;
 
     //REQUIRES: time and duration is between 0 and 24
-    Booking(int time, int duration, String booker) {
+    public Booking(int time, int duration, String booker) {
         this.time = time;
         this.duration = duration;
         this.booker = booker;

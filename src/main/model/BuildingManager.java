@@ -7,11 +7,15 @@ import java.util.List;
 
 public class BuildingManager {
 
+    private List<Building> buildings;
 
-    //Construct a new list of Buildings
+
+  //Construct a new list of Buildings
     public BuildingManager() {
-        List<Building> buildings = new LinkedList();
+        buildings = new LinkedList();
     }
+
+
 
 
 }
