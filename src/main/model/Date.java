@@ -3,12 +3,12 @@ package model;
 
 import java.util.HashMap;
 
-// A class that describes a date: month and day
+// A class that describes a date: month, day, and year
 public class Date {
     private int month;
     private int day;
     private int year;
-    private HashMap<Integer, Integer> calender = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> calender = new HashMap<>();
 
     public Date(int month, int day, int year) {
       //fill the calender with the days of the month depending on the year
@@ -72,7 +72,7 @@ public class Date {
   // and creates a new date if it exceeds that day
   // returns the new date
     public Date addHours(int startTime, int duration) {
-        int addDays = 0;
+        int addDays;
         Date newDay = new Date(this.month, this.day, this.year);
         if (startTime + duration >= 24) {
             addDays = (startTime + duration) / 24;
@@ -91,9 +91,7 @@ public class Date {
             if (this.month > date.getMonth()) {
                 return true;
             } else if (this.month == date.getMonth()) {
-                if (this.day > date.getDay()) {
-                    return true;
-                }
+                return (this.day > date.getDay());
             }
         }
         return false;
@@ -104,9 +102,7 @@ public class Date {
     public Boolean isEqual(Date date) {
         if (this.year == date.getYear()) {
             if (this.month == date.getMonth()) {
-                if (this.day == date.getDay()) {
-                    return true;
-                }
+                return (this.day == date.getDay());
             }
         }
         return false;
