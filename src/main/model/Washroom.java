@@ -9,7 +9,7 @@ public class Washroom extends Room {
 
     @Override
     //EFFECTS: returns false as you cannot book a bathroom
-    public Boolean bookRoom(int time, int duration, String booker, int month, int day, int year) {
+    public Boolean bookRoom(Date d, Booking b) {
         return false;
     }
 

@@ -74,7 +74,7 @@ public class Date {
     public Date addHours(int startTime, int duration) {
         int addDays = 0;
         Date newDay = new Date(this.month, this.day, this.year);
-        if (startTime + duration > 24) {
+        if (startTime + duration >= 24) {
             addDays = (startTime + duration) / 24;
             newDay.year = newDay.year
                 + newDay.calcMonth(newDay.month + newDay.calcDays(newDay.day + addDays, newDay.month));
@@ -92,6 +92,19 @@ public class Date {
                 return true;
             } else if (this.month == date.getMonth()) {
                 if (this.day > date.getDay()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+  //EFFECTS: compares this Date to a given Date and returns true if the
+  // given Dates are the same
+    public Boolean isEqual(Date date) {
+        if (this.year == date.getYear()) {
+            if (this.month == date.getMonth()) {
+                if (this.day == date.getDay()) {
                     return true;
                 }
             }

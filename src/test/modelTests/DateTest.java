@@ -35,11 +35,28 @@ public class DateTest {
     assertEquals(2044, d1.getYear() );
     assertEquals(12, d1.getDay());
     assertEquals(10, d1.getMonth());
+    d1 = new Date(12 + 12 * 24, 12, 2020);
+    assertEquals(12, d1.getMonth());
   }
   @Test
   void testIsAfter() {
     assertFalse(d1.isAfter(d2));
+    assertTrue(d2.isAfter(d1));
+    assertTrue(d3.isAfter(d1));
     assertTrue(d4.isAfter(d1));
+  }
+
+  @Test
+  void testIsEqual() {
+    assertFalse(d1.isEqual(d2));
+    assertTrue(d3.isEqual(d3));
+    assertTrue(d4.isEqual(d4));
+  }
+
+  @Test
+  void testAddHours() {
+    assertEquals(13, d1.addHours(0, 24).getDay());
+    assertEquals(14, d1.addHours(0, 48).getDay());
   }
 
 

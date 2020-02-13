@@ -24,7 +24,7 @@ public class Booking {
         return duration;
     }
 
-    public int getBooker() {
-        return duration;
+    public String getBooker() {
+        return booker;
     }
 }

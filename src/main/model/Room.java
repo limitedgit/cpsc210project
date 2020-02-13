@@ -1,7 +1,8 @@
 package model;
 
+import com.sun.xml.internal.ws.addressing.WsaTubeHelper;
+
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 // A class describing a room in a building
 // a room has an id eg. 210
@@ -23,38 +24,38 @@ public class Room {
         this.requiresMaintenance = false;
     }
 
+
     //EFFECTS: checks if the room is booked at a certain time (in hours) by comparing the
     // starting and ending times of currently current bookings in the schedule with the
     // the dateToCheck
-    public Boolean isBookedAtTime(Date checkDateStartTime, Booking checkBook) {
+    public Boolean isBookedAtDate(Date checkDateStartDate, Booking checkBook) {
         Boolean result = false;
         //get the end time by adding duration
-        Date checkDateEndTime = checkDateStartTime.addHours(checkBook.getTime(), checkBook.getDuration());
+        Date checkDateEndDate = checkDateStartDate.addHours(checkBook.getTime(), checkBook.getDuration());
         //check each date
-        for (Date dateStartTime : schedule.keySet()) {
-            Booking booking = schedule.get(dateStartTime);
+        for (Date dateStartDate : schedule.keySet()) {
+            Booking booking = schedule.get(dateStartDate);
             //get the end time by adding duration
-            Date dateEndTime =  dateStartTime.addHours(booking.getTime(), booking.getDuration());
+            Date dateEndDate =  dateStartDate.addHours(booking.getTime(), booking.getDuration());
             //if the date to check starts during a booked time
-            Boolean startsDuringBookedTime = !dateStartTime.isAfter(checkDateStartTime)
-                    && dateEndTime.isAfter(checkDateStartTime);
-            //if the date to check starts during a booked time
-            Boolean endsDuringBookedTime = !dateStartTime.isAfter(checkDateEndTime)
-                    && dateEndTime.isAfter(checkDateEndTime);
-
+            Boolean startsDuringBookedDate = !dateStartDate.isAfter(checkDateStartDate)
+                    && dateEndDate.isAfter(checkDateStartDate);
+            //if the date to check ends during a booked time
+            Boolean endsDuringBookedDate = (!dateStartDate.isAfter(checkDateEndDate)
+                    && !dateStartDate.isEqual(checkDateEndDate))
+                    && (dateEndDate.isAfter(checkDateEndDate) || dateEndDate.isEqual(checkDateEndDate));
             // if the a booking to be checked starts or ends during a booked time
             // then the time has already been booked
-            if (startsDuringBookedTime || endsDuringBookedTime) {
+            if (startsDuringBookedDate || endsDuringBookedDate) {
                 result = true;
-            } else if (dateEndTime == checkDateStartTime) {
+            } else if (dateEndDate.isEqual(checkDateStartDate)) {
                 //if it starts on the end day, check the hours
-                if ((booking.getTime() + booking.getDuration()) % 24 > checkBook.getTime()) {
+                if ((booking.getTime() + booking.getDuration()) % 24 >= checkBook.getTime()) {
                     result = true;
                 }
-
-            } else if (dateStartTime == checkDateEndTime) {
+            } else if (dateStartDate.isEqual(checkDateEndDate)) {
                 // if it ends on a start day, check the hours
-                if ((checkBook.getTime() + checkBook.getDuration() % 24 > booking.getTime())) {
+                if ((checkBook.getTime() + checkBook.getDuration()) % 24 >= booking.getTime()) {
                     result = true;
                 }
             }
@@ -64,14 +65,18 @@ public class Room {
 
     //REQUIRES: time is integer between 0 and 24
     //EFFECTS: checks if the room is booked at a certain time (in hours)
-    public Boolean bookRoom(int time, int duration, String booker, int month, int day, int year) {
-        Booking newBook = new Booking(time, duration, booker);
-        Date newDate = new Date(month, day, year);
-        if (!isBookedAtTime(newDate, newBook)) {
+    public Boolean bookRoom(Date newDate, Booking newBook) {
+        if (!isBookedAtDate(newDate, newBook)) {
             this.schedule.put(newDate, newBook);
             return true;
         }
         return false;
+    }
+
+    //REQUIRES: given Booking b exists in the schedule
+    //EFFECTS: removes an existing booking from the schedule
+    public void removeBooking(Date d, Booking b) {
+        this.schedule.remove(d, b);
     }
 
     public int getId() {
