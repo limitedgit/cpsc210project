@@ -37,16 +37,36 @@ public class RoomTest {
 
   @Test
   void testIsBookedAtTime(){
-
+      //unbooked date
       assertFalse(r1.isBookedAtDate(d1, b1));
+
+      //tests ending on same date and time
       r1.bookRoom(d1,b1);
       assertTrue(r1.isBookedAtDate(d1, b1));
       r1.bookRoom(d2, b2);
       assertTrue(r1.isBookedAtDate(d2, b2));
+
+      //tests starting during a booked date
       b1 = new Booking(10,56, "Felix");
       d2 = new Date(1,24,2020);
       r1.bookRoom(d1,b1);
       assertTrue(r1.isBookedAtDate(d2, b2));
+
+      //test ending during a booked date
+      d1 = new Date(1,25,2022);
+      b1 = new Booking(10,24, "Felix");
+      b2 = new Booking(10,26, "Felix");
+      d2 = new Date(1,24,2022);
+      r1.bookRoom(d1,b1);
+      assertTrue(r1.isBookedAtDate(d2, b2));
+
+      d1 = new Date(1,25,2026);
+      b1 = new Booking(10,2, "Felix");
+      b2 = new Booking(10,26, "Felix");
+      d2 = new Date(1,24,2026);
+      r1.bookRoom(d1,b1);
+      assertTrue(r1.isBookedAtDate(d2, b2));
+
   }
 
   @Test
@@ -70,6 +90,7 @@ public class RoomTest {
     d3 = new Date(1,26,2008);
     b3 = new Booking(0,24, "Felix");
     assertFalse(r1.isBookedAtDate(d3, b3));
+
   }
 
   @Test

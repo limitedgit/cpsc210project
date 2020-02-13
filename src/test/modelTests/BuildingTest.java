@@ -46,6 +46,8 @@ public class BuildingTest {
     b1.addRoom("tab", 100, 1);
     assertEquals(1, b1.getRooms().size());
     assertEquals("tab", b1.getRooms().get(0).getName());
+    b1.removeRoom(200);
+    assertEquals(1, b1.getRooms().size());
     b1.removeRoom(100);
     assertEquals(0, b1.getRooms().size());
   }
@@ -54,6 +56,8 @@ public class BuildingTest {
     b1.addRoom("tab", 100, 1);
     Date d1 = new Date(10, 10, 2010);
     Booking book = new Booking(1,1, "felix");
+    b1.bookRoom(200,d1,book);
+    assertFalse(b1.getRooms().get(0).isBookedAtDate(d1, book));
     b1.bookRoom(100,d1,book);
     assertTrue(b1.getRooms().get(0).isBookedAtDate(d1, book));
     b1.bookRoom(100,d1,book);
@@ -66,8 +70,11 @@ public class BuildingTest {
     Booking book = new Booking(1,1, "felix");
     b1.bookRoom(100,d1,book);
     assertTrue(b1.getRooms().get(0).isBookedAtDate(d1, book));
+    b1.cancelBook(200);
+    assertTrue(b1.getRooms().get(0).isBookedAtDate(d1, book));
     b1.cancelBook(100);
     assertFalse(b1.getRooms().get(0).isBookedAtDate(d1, book));
+
   }
 
 

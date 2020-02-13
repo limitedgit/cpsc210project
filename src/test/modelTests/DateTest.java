@@ -42,15 +42,21 @@ public class DateTest {
   void testIsAfter() {
     assertFalse(d1.isAfter(d2));
     assertTrue(d2.isAfter(d1));
+    assertFalse(d1.isAfter(d2));
     assertTrue(d3.isAfter(d1));
+    assertFalse(d1.isAfter(d3));
     assertTrue(d4.isAfter(d1));
+    assertFalse(d1.isAfter(d4));
   }
 
   @Test
   void testIsEqual() {
+    assertTrue(d2.isEqual(d2));
     assertFalse(d1.isEqual(d2));
     assertTrue(d3.isEqual(d3));
+    assertFalse(d1.isEqual(d3));
     assertTrue(d4.isEqual(d4));
+    assertFalse(d1.isEqual(d4));
   }
 
   @Test
