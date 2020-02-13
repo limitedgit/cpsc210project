@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.xml.internal.ws.addressing.WsaTubeHelper;
-
 import java.util.LinkedHashMap;
 
 // A class describing a room in a building
@@ -27,7 +25,7 @@ public class Room {
     // starting and ending times of currently current bookings in the schedule with the
     // the dateToCheck
     public Boolean isBookedAtDate(Date checkDateStartDate, Booking checkBook) {
-        Boolean result = false;
+        boolean result = false;
         //get the end time by adding duration
         Date checkDateEndDate = checkDateStartDate.addHours(checkBook.getTime(), checkBook.getDuration());
         //check each date
