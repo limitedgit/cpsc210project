@@ -52,14 +52,14 @@ public class RoomTest {
       r1.bookRoom(d1,b1);
       assertTrue(r1.isBookedAtDate(d2, b2));
 
-      //test ending during a booked date
+      //test ending during a booked date different end
       d1 = new Date(1,25,2022);
-      b1 = new Booking(10,24, "Felix");
+      b1 = new Booking(10,48, "Felix");
       b2 = new Booking(10,26, "Felix");
       d2 = new Date(1,24,2022);
       r1.bookRoom(d1,b1);
       assertTrue(r1.isBookedAtDate(d2, b2));
-
+      //test ending during a booked date same end
       d1 = new Date(1,25,2026);
       b1 = new Booking(10,2, "Felix");
       b2 = new Booking(10,26, "Felix");
