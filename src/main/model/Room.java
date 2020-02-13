@@ -12,7 +12,6 @@ public class Room {
     protected int id;
     protected int floor;
     protected LinkedHashMap<Date, Booking> schedule;
-    protected Boolean requiresMaintenance;
 
 
     //EFFECTS: creates a new Room that does not need maintenance
@@ -21,7 +20,6 @@ public class Room {
         this.id = id;
         this.floor = floor;
         this.schedule = new LinkedHashMap<>();
-        this.requiresMaintenance = false;
     }
 
 
@@ -73,35 +71,30 @@ public class Room {
         return false;
     }
 
-    //REQUIRES: given Booking b exists in the schedule
-    //EFFECTS: removes an existing booking from the schedule
-    public void removeBooking(Date d, Booking b) {
-        this.schedule.remove(d, b);
+
+    //EFFECTS: clears all Bookings
+    public void removeBooking() {
+        this.schedule = new LinkedHashMap<>();
     }
 
+
+  //EFFECTS: returns room id
     public int getId() {
         return id;
     }
 
+  //EFFECTS: returns floor of the room
     public int getFloor() {
         return floor;
     }
 
+  //EFFECTS: returns name of the room
     public String getName() {
         return name;
     }
 
-  //MODIFIES: this
-    //EFFECTS: changes the maintenance status of a room
-    public void changeMaintenceStatus() {
-        this.requiresMaintenance = !this.requiresMaintenance;
-    }
 
-
-    public Boolean needsMaintenceStatus() {
-        return this.requiresMaintenance;
-    }
-
+    //EFFECTS: returns room schedule
     public LinkedHashMap<Date, Booking> getSchedule() {
         return this.schedule;
     }

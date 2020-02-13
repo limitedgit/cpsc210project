@@ -93,19 +93,12 @@ public class RoomTest {
     assertEquals("newRoom", r1.getName());
   }
 
-  @Test
-  void testMaintenanceStatus() {
-    r1.changeMaintenceStatus();
-    assertTrue(r1.needsMaintenceStatus());
-    r1.changeMaintenceStatus();
-    assertFalse(r1.needsMaintenceStatus());
-  }
 
   @Test
   void testRemoveBooking(){
     r1.bookRoom(d1,b1);
     assertEquals(1, r1.getSchedule().size());
-    r1.removeBooking(d1,b1);
+    r1.removeBooking();
     assertEquals(0, r1.getSchedule().size());
   }
 }
