@@ -113,12 +113,12 @@ public class Date {
     }
 
     //EFFECTS: returns the day of the month stored
-    public int getDay () {
+    public int getDay() {
         return this.day;
     }
 
     //EFFECTS: returns the month stored
-    public int getMonth () {
+    public int getMonth() {
         if (this.month == 0) {
             return 12; //december is stored as 0
         }
@@ -126,7 +126,7 @@ public class Date {
     }
 
     //EFFECTS: returns the year stored
-    public int getYear () {
+    public int getYear() {
         return this.year;
     }
 }
