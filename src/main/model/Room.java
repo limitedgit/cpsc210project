@@ -31,12 +31,12 @@ public class Room {
         //check each date
         for (Date dateStartDate : schedule.keySet()) {
             Booking booking = schedule.get(dateStartDate);
-            //get the end time by adding duration
+            //a variable that represents the end time by adding duration to the date
             Date dateEndDate =  dateStartDate.addHours(booking.getTime(), booking.getDuration());
-            //if the date to check starts during a booked time
+            //boolean to represent if the date to check starts during a booked time
             Boolean startsDuringBookedDate = !dateStartDate.isAfter(checkDateStartDate)
                     && dateEndDate.isAfter(checkDateStartDate);
-            //if the date to check ends during a booked time
+            //boolean to represent if the date to check ends during a booked time
             Boolean endsDuringBookedDate = (!dateStartDate.isAfter(checkDateEndDate)
                     && !dateStartDate.isEqual(checkDateEndDate))
                     && (dateEndDate.isAfter(checkDateEndDate) || dateEndDate.isEqual(checkDateEndDate));
