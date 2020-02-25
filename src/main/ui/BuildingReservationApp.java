@@ -4,18 +4,24 @@ import model.Booking;
 import model.Building;
 import model.Date;
 import model.Room;
+//import persistence.Reader;
 
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BuildingReservationApp {
 
     private Scanner input;
-    private Building b1 = new Building();
+    private Building b1;
+    private static final String BUILDING_SER = "./data/building.ser";
 
     public BuildingReservationApp() {
         runApp();
     }
 
+    //EFFECTS: displays the menu of options
     private void displayMenu() {
         System.out.println("\nPlease choose an option:");
         System.out.println("\tp -> print current rooms of building");
@@ -23,37 +29,39 @@ public class BuildingReservationApp {
         System.out.println("\tb -> book a room in the building");
         System.out.println("\tr -> remove a room in the building");
         System.out.println("\tc -> clear the bookings of a room");
+        System.out.println("\tpb -> print the bookings of a room");
+        System.out.println("\ts -> save the building to file");
         System.out.println("\tq -> exit program");
     }
 
+    //EFFECTS: processes the user's command by taking in an input and calling the corresponding method
     private void processCommand(String option) {
-        switch (option) {
-            case "p" :
-                printRooms();
-                break;
-            case "a":
-                addRooms();
-                break;
-            case "b":
-                bookRooms();
-                break;
-            case "r":
-                removeRooms();
-                break;
-            case "c":
-                cancelBooking();
-                break;
-            default:
-                System.out.println("that is not an option");
-                break;
+        if (option.equals("p")) {
+            printRooms();
+        } else if (option.equals("a")) {
+            addRooms();
+        } else if (option.equals("b")) {
+            bookRooms();
+        } else if (option.equals("r")) {
+            removeRooms();
+        } else if (option.equals("c")) {
+            cancelBooking();
+        } else if (option.equals("pb")) {
+            getBooking();
+        } else if (option.equals("s")) {
+            saveBuilding();
+        } else {
+            System.out.println("that is not an option");
         }
-
     }
+
 
     private void runApp() {
         boolean keepGoing = true;
         String option = null;
         input = new Scanner(System.in);
+
+        loadBuilding();
 
         while (keepGoing) {
             displayMenu();
@@ -70,6 +78,7 @@ public class BuildingReservationApp {
         System.out.println("\nGoodbye!");
     }
 
+    //EFFECTS: prints the rooms
     void printRooms() {
         for (Room r: b1.getRooms()) {
             System.out.println("name: " + r.getName() + " id: " + r.getId() + " floor " + r.getFloor());
@@ -110,6 +119,37 @@ public class BuildingReservationApp {
         b1.cancelBook(id);
     }
 
+    void getBooking() {
+        System.out.println("Enter the id of the room");
+        int id = input.nextInt();
+        input.nextLine(); //consume new line
+        if (!b1.getSchedule(id).isEmpty()) {
+            System.out.println("Booked:");
+            for (Date dateStartDate : b1.getSchedule(id).keySet()) {
+
+              //the booking at the starting Date
+                Booking booking = b1.getSchedule(id).get(dateStartDate);
+              //a variable that represents the end time by adding duration to the date
+                Date dateEndDate =  dateStartDate.addHours(booking.getTime(), booking.getDuration());
+
+                int endTime = ((booking.getTime() + booking.getDuration()) % 24);
+
+                System.out.println("By " + booking.getBooker() + " from:");
+                System.out.println(+ dateStartDate.getDay() + " "
+                        + dateStartDate.getMonth() + " " + dateStartDate.getYear()
+                        + " at " + booking.getTime() + ":00");
+                System.out.println("To:");
+                System.out.println(dateEndDate.getDay() + " "
+                        + dateEndDate.getMonth() + " " + dateEndDate.getYear()
+                        + " at " + endTime + ":00");
+
+
+            }
+        } else {
+            System.out.println("that room has no schedule booked");
+        }
+    }
+
 
     void removeRooms() {
         System.out.println("Enter the id of the room to be removed");
@@ -128,6 +168,50 @@ public class BuildingReservationApp {
         System.out.println("Enter the name of the room");
         String name = input.nextLine();
         b1.addRoom(name,id,floor);
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes New Building
+    private void init() {
+        this.b1 = new Building();
+    }
+
+
+    private void saveBuilding() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(BUILDING_SER);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(b1);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+
+  // MODIFIES: this
+  // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
+  // otherwise initializes accounts with default values
+    private void loadBuilding() {
+
+        try {
+            FileInputStream fileIn = new FileInputStream(BUILDING_SER);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            this.b1 = (Building) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (FileNotFoundException f) {
+            init();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Building class not found");
+            c.printStackTrace();
+            return;
+        }
 
     }
 

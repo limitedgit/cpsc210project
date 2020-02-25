@@ -1,12 +1,14 @@
 package model;
 
-import sun.awt.image.ImageWatched;
-
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
+
 
 // a class describing a Building in the campus
-public class Building {
+public class Building implements Serializable {
+    private static final long serialVersionUID = 1L; //serialization id
     int totalRooms; //the total number of rooms in the building
     List<Room> rooms; //should be a list of rooms, cannot exceed totalRooms
 
@@ -76,6 +78,17 @@ public class Building {
     // Effects: returns the current number of rooms
     public int getTotalRooms() {
         return totalRooms;
+    }
+
+  // Effects: returns schedule of a room with the given id
+  // if no schedule is found, return null
+    public LinkedHashMap<Date,Booking> getSchedule(int id) {
+        for (Room r : rooms) {
+            if (r.getId() == id) {
+                return r.getSchedule();
+            }
+        }
+        return new LinkedHashMap<Date, Booking>();
     }
 
 }

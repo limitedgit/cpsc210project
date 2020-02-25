@@ -1,15 +1,19 @@
 package model;
 
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 // A class that describes a date: month, day, and year
-public class Date {
+public class Date implements Serializable {
+    private static final long serialVersionUID = 1L; //serialization id
     private int month;
     private int day;
     private int year;
     private HashMap<Integer, Integer> calender = new HashMap<>();
 
+
+    //EFFECTS: constructs a date with the given month, day, and year
     public Date(int month, int day, int year) {
       //fill the calender with the days of the month depending on the year
       //uses the gregorian calender
