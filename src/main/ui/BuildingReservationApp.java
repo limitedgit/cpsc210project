@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+//the UI app to be ran in main
 public class BuildingReservationApp {
 
     private Scanner input;

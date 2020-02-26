@@ -115,6 +115,7 @@ public class RoomTest {
 
     d3 = new Date(1,26,2008);
     b3 = new Booking(0,24, "Felix");
+    //it is not booked
     assertFalse(r1.isBookedAtDate(d3, b3));
 
 
