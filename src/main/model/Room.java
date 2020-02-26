@@ -10,7 +10,7 @@ import java.io.Serializable;
 // A class describing a room in a building
 // a room has an id eg. 210
 // a room can be booked for a certain time
-public class Room implements /*Saveable,*/ Serializable {
+public class Room implements Serializable {
     protected String name;
     protected int id;
     protected int floor;

@@ -47,10 +47,16 @@ public class RoomTest {
       assertTrue(r1.isBookedAtDate(d2, b2));
 
       //tests starting during a booked date
+      d1  = new Date(1,23,2020);
       b1 = new Booking(10,56, "Felix");
       d2 = new Date(1,24,2020);
       r1.bookRoom(d1,b1);
       assertTrue(r1.isBookedAtDate(d2, b2));
+      //tests starting during a booked date but ends on same day
+      d2 = new Date(1,24,2020);
+      b2 = new Booking(10,32, "Felix");
+      assertTrue(r1.isBookedAtDate(d2, b2));
+
 
       //test ending during a booked date different end
       d1 = new Date(1,25,2022);
