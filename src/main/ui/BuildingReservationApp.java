@@ -4,7 +4,8 @@ import model.Booking;
 import model.Building;
 import model.Date;
 import model.Room;
-//import persistence.Reader;
+import persistence.Reader;
+import persistence.Writer;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -126,12 +127,10 @@ public class BuildingReservationApp {
         if (!b1.getSchedule(id).isEmpty()) {
             System.out.println("Booked:");
             for (Date dateStartDate : b1.getSchedule(id).keySet()) {
-
               //the booking at the starting Date
                 Booking booking = b1.getSchedule(id).get(dateStartDate);
               //a variable that represents the end time by adding duration to the date
                 Date dateEndDate =  dateStartDate.addHours(booking.getTime(), booking.getDuration());
-
                 int endTime = ((booking.getTime() + booking.getDuration()) % 24);
 
                 System.out.println("By " + booking.getBooker() + " from:");
@@ -142,8 +141,6 @@ public class BuildingReservationApp {
                 System.out.println(dateEndDate.getDay() + " "
                         + dateEndDate.getMonth() + " " + dateEndDate.getYear()
                         + " at " + endTime + ":00");
-
-
             }
         } else {
             System.out.println("that room has no schedule booked");
@@ -178,13 +175,12 @@ public class BuildingReservationApp {
     }
 
 
+  // EFFECTS: saves the building to a file
     private void saveBuilding() {
         try {
-            FileOutputStream fileOut = new FileOutputStream(BUILDING_SER);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(b1);
-            out.close();
-            fileOut.close();
+            Writer write = new Writer(BUILDING_SER);
+            write.saveFile(b1);
+            write.close();
         } catch (IOException i) {
             i.printStackTrace();
         }
@@ -195,13 +191,11 @@ public class BuildingReservationApp {
   // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
   // otherwise initializes accounts with default values
     private void loadBuilding() {
-
         try {
-            FileInputStream fileIn = new FileInputStream(BUILDING_SER);
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.b1 = (Building) in.readObject();
-            in.close();
-            fileIn.close();
+
+            Reader reader = new Reader(BUILDING_SER);
+            this.b1 = (Building) reader.loadObject();
+            reader.close();
         } catch (FileNotFoundException f) {
             init();
         } catch (IOException i) {

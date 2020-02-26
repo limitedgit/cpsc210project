@@ -79,8 +79,18 @@ public class BuildingTest {
     assertTrue(b1.getRooms().get(0).isBookedAtDate(d1, book));
     b1.cancelBook(100);
     assertFalse(b1.getRooms().get(0).isBookedAtDate(d1, book));
-
   }
+  @Test
+  void testGetSchedule(){
+    b1.addRoom("tab", 100, 1);
+    Date d1 = new Date(10, 10, 2010);
+    Booking book = new Booking(1,1, "felix");
+    b1.bookRoom(100,d1,book);
+    assertEquals(b1.getRooms().get(0).getSchedule(), b1.getSchedule(100));
+    assertEquals(0,b1.getSchedule(101).size());
+  }
+
+
 
 
 

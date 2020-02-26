@@ -37,6 +37,7 @@ public class Building implements Serializable {
             if (r.getId() == id) {
                 rooms.remove(r);
                 totalRooms -= 1;
+                break;
             }
         }
     }

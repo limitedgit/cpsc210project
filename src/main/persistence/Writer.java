@@ -1,29 +1,31 @@
-//package persistence;
-//
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.PrintWriter;
-//import java.io.UnsupportedEncodingException;
-//
-//// A writer that can write building data to a file
-//public class Writer {
-//    private PrintWriter printWriter;
-//
-//    // EFFECTS: constructs a writer that will write data to file
-//    public Writer(File file) throws FileNotFoundException, UnsupportedEncodingException {
-//        printWriter = new PrintWriter(file, "UTF-8");
-//    }
-//
-//    // MODIFIES: this
-//    // EFFECTS: writes saveable to file
-//    public void write(Saveable saveable) {
-//        saveable.save(printWriter);
-//    }
-//
-//    // MODIFIES: this
-//    // EFFECTS: close print writer
-//    // NOTE: you MUST call this method when you are done writing data!
-//    public void close() {
-//        printWriter.close();
-//    }
-//}
+package persistence;
+
+import java.io.*;
+
+
+// a class that writes data to a file
+public class Writer {
+    FileOutputStream fileOut;
+    ObjectOutputStream out;
+
+
+    //MODIFIES: this
+    //EFFECTS: initializes a new FileOuput and ObjectOutput
+    public Writer(String fileName) throws IOException {
+        fileOut = new FileOutputStream(fileName);
+        out = new ObjectOutputStream(fileOut);
+    }
+
+
+    //EFFECTS: writes an Object to a file
+    public void saveFile(Object object) throws IOException {
+        out.writeObject(object);
+    }
+
+
+    //EFFECTS: closes the writer
+    public void  close() throws IOException {
+        fileOut.close();
+        out.close();
+    }
+}

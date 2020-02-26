@@ -113,15 +113,4 @@ public class Room implements /*Saveable,*/ Serializable {
     }
 
 
-//    @Override
-//    public void save(PrintWriter printWriter) {
-//        printWriter.print(id);
-//        printWriter.print(Reader.DELIMITER);
-//        printWriter.print(name);
-//        printWriter.print(Reader.DELIMITER);
-//        printWriter.print(name);
-//        printWriter.print(Reader.DELIMITER);
-//
-//p
-//    }
 }
