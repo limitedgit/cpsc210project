@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RoomTest {
   Room r1;
   Room r2;
+  Room r3;
   Date d1;
   Booking b1;
   Date d2;
@@ -25,6 +26,7 @@ public class RoomTest {
     d2 = new Date(1,27,2008);
     b2 = new Booking(1,2, "Felix");
     r2 = new Room("Classroom2", 100, 1);
+    r3 = new Room("Classroom3", 100, 1);
 
   }
 
@@ -54,6 +56,7 @@ public class RoomTest {
       d2 = new Date(1,24,2020);
       r1.bookRoom(d1,b1);
       assertTrue(r1.isBookedAtDate(d2, b2));
+
       //tests starting during a booked date but ends on same day
       d2 = new Date(1,24,2020);
       b2 = new Booking(10,32, "Felix");
@@ -65,15 +68,19 @@ public class RoomTest {
       b1 = new Booking(10,48, "Felix");
       b2 = new Booking(10,26, "Felix");
       d2 = new Date(1,24,2022);
-      r1.bookRoom(d1,b1);
-      assertTrue(r1.isBookedAtDate(d2, b2));
+      r2.bookRoom(d1,b1);
+      assertTrue(r2.isBookedAtDate(d2, b2));
+
+
+      //endsDuringBookedDate
       //test ending during a booked date same end
       d1 = new Date(1,25,2026);
       b1 = new Booking(10,2, "Felix");
-      b2 = new Booking(10,26, "Felix");
       d2 = new Date(1,24,2026);
-      r1.bookRoom(d1,b1);
-      assertTrue(r1.isBookedAtDate(d2, b2));
+      b2 = new Booking(10,26, "Felix");
+
+      r3.bookRoom(d1,b1);
+      assertTrue(r3.isBookedAtDate(d2, b2));
 
   }
 
