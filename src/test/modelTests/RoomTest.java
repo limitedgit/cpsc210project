@@ -11,6 +11,7 @@ public class RoomTest {
   Room r1;
   Room r2;
   Room r3;
+  Room r4;
   Date d1;
   Booking b1;
   Date d2;
@@ -27,6 +28,7 @@ public class RoomTest {
     b2 = new Booking(1,2, "Felix");
     r2 = new Room("Classroom2", 100, 1);
     r3 = new Room("Classroom3", 100, 1);
+    r4 = new Room("Classroom3", 100, 1);
 
   }
 
@@ -54,13 +56,13 @@ public class RoomTest {
       d1  = new Date(1,23,2020);
       b1 = new Booking(10,56, "Felix");
       d2 = new Date(1,24,2020);
-      r1.bookRoom(d1,b1);
-      assertTrue(r1.isBookedAtDate(d2, b2));
+      r4.bookRoom(d1,b1);
+      assertTrue(r4.isBookedAtDate(d2, b2));
 
       //tests starting during a booked date but ends on same day
       d2 = new Date(1,24,2020);
       b2 = new Booking(10,32, "Felix");
-      assertTrue(r1.isBookedAtDate(d2, b2));
+      assertTrue(r4.isBookedAtDate(d2, b2));
 
 
       //test ending during a booked date different end
