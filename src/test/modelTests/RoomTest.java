@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
   Room r1;
+  Room r2;
   Date d1;
   Booking b1;
   Date d2;
@@ -23,6 +24,7 @@ public class RoomTest {
     b1 = new Booking(1,2, "Felix");
     d2 = new Date(1,27,2008);
     b2 = new Booking(1,2, "Felix");
+    r2 = new Room("Classroom2", 100, 1);
 
   }
 
@@ -80,23 +82,50 @@ public class RoomTest {
 
     d2 = new Date(1,27,2008);
     b2 = new Booking(1,26, "Felix");
-
     d3 = new Date(1,26,2008);
     b3 = new Booking(2,24, "Felix");
     r1.bookRoom(d2,b2);
+
+    //it is booked at the checkday end day
     assertTrue(r1.isBookedAtDate(d3, b3));
+
+
+    d3 = new Date(1,26,2008);
+    b3 = new Booking(0,24, "Felix");
+    //it is not booked at the checkday end day
+    assertFalse(r1.isBookedAtDate(d3, b3));
+
+
     d3 = new Date(1,28,2008);
     b3 = new Booking(1,24, "Felix");
+    //it is booked at the checkday start day
     assertTrue(r1.isBookedAtDate(d3, b3));
+
+
     d3 = new Date(1,28,2008);
     b3 = new Booking(4,24, "Felix");
+    //it is not booked at the checkday start date
     assertFalse(r1.isBookedAtDate(d3, b3));
+
+
     b3 = new Booking(3,24, "Felix");
+    //it is booked at the check day start date
     assertTrue(r1.isBookedAtDate(d3, b3));
+
+
     d3 = new Date(1,26,2008);
     b3 = new Booking(0,24, "Felix");
     assertFalse(r1.isBookedAtDate(d3, b3));
 
+
+
+
+    d2 = new Date(1,28,2008);
+    b2 = new Booking(3,1, "Felix");
+    r2.bookRoom(d2,b2);
+    d3 = new Date(1,28,2008);
+    b3 = new Booking(6,3, "Felix");
+    assertFalse(r2.isBookedAtDate(d3, b3));
   }
 
   @Test
