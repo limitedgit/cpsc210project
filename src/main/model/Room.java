@@ -46,7 +46,7 @@ public class Room implements Serializable {
 
             //boolean to represent if the date to check starts during a booked time
             Boolean startsDuringBookedDate = !dateStartDate.isAfter(checkDateStartDate)
-                    && (!dateEndDate.isAfter(checkDateStartDate) && !dateEndDate.isEqual(checkDateStartDate));
+                    && dateEndDate.isAfter(checkDateStartDate);
 
             //boolean to represent if the date to check ends during a booked time
             Boolean endsDuringBookedDate = (!dateStartDate.isAfter(checkDateEndDate)
