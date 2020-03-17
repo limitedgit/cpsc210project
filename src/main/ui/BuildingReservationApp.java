@@ -130,7 +130,7 @@ public class BuildingReservationApp {
             for (Date dateStartDate : b1.getSchedule(id).keySet()) {
               //the booking at the starting Date
                 Booking booking = b1.getSchedule(id).get(dateStartDate);
-              //a variable that represents the end time by adding duration to the date
+                //a variable that represents the end time by adding duration to the date
                 Date dateEndDate =  dateStartDate.addHours(booking.getTime(), booking.getDuration());
                 int endTime = ((booking.getTime() + booking.getDuration()) % 24);
 
@@ -166,7 +166,6 @@ public class BuildingReservationApp {
         System.out.println("Enter the name of the room");
         String name = input.nextLine();
         b1.addRoom(name,id,floor);
-
     }
 
     // MODIFIES: this
@@ -176,7 +175,7 @@ public class BuildingReservationApp {
     }
 
 
-  // EFFECTS: saves the building to a file
+    // EFFECTS: saves the building to a file
     private void saveBuilding() {
         try {
             Writer write = new Writer(BUILDING_SER);
@@ -188,9 +187,9 @@ public class BuildingReservationApp {
     }
 
 
-  // MODIFIES: this
-  // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
-  // otherwise initializes accounts with default values
+    // MODIFIES: this
+    // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
+    // otherwise initializes accounts with default values
     private void loadBuilding() {
         try {
 
