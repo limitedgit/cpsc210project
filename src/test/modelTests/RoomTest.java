@@ -138,6 +138,43 @@ public class RoomTest {
     assertFalse(r2.isBookedAtDate(d3, b3));
   }
 
+
+  @Test
+
+  void testMissedBranchStartOrEndTimes() {
+
+
+    //startsDuringBookedDate
+    //!dateStartDate.isAfter(checkDateStartDate) && dateEndDate.isAfter(checkDateStartDate);
+    d1 = new Date(1,1,2020);
+    b1 = new Booking(9,48,"john");
+    r1.bookRoom(d1,b1);
+    d2 = new Date(1,2,2020);
+    b2 = new Booking(7,24, "john");
+    assertTrue(r1.isBookedAtDate(d2,b2));
+
+
+    //endsDuringBookedDate
+    //(!dateStartDate.isAfter(checkDateEndDate)
+    //                    && !dateStartDate.isEqual(checkDateEndDate))
+    //                    && (dateEndDate.isAfter(checkDateEndDate) || dateEndDate.isEqual(checkDateEndDate));
+
+    d1 = new Date(1,3,2020);
+    b1 = new Booking(9,70,"john");
+    r2.bookRoom(d1,b1);
+    d2 = new Date(1,2,2020);
+    b2 = new Booking(10,48, "john");
+    assertTrue(r2.isBookedAtDate(d2,b2));
+
+    d1 = new Date(1,3,2020);
+    b1 = new Booking(9,2,"john");
+    r3.bookRoom(d1,b1);
+    d2 = new Date(1,2,2020);
+    b2 = new Booking(10,24, "john");
+    assertTrue(r3.isBookedAtDate(d2,b2));
+  }
+
+
   @Test
   void testGetFloor(){
       assertEquals(1, r1.getFloor());
