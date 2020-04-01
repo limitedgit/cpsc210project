@@ -17,4 +17,12 @@ I built this project because I was interested in the software that automated the
 - As a user I want to able to save my building with rooms and schedule
 - As a user I want to able to reload my building from when I last saved it
 
+## Phase 4: Task 2 
+- The Map interface was used in the Classes Room and Date
+- In the class Room a Hashmap is used to associate a date object with a booking object 
+This was so that every Date can be booked or unbooked, and this made it possible to determine if a room could be booked on a certain time/date.
+- In the Date class a Hashmap is used to associate a month and a day to create a calendar
+This hash map calendar was implemented so that if a room was booked for multiple hours or days, the correct end time could be calculated as it stored the days of each month of that year.
+
+
 
