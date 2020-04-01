@@ -134,6 +134,7 @@ public class BuildingReservationApp {
                 Date dateEndDate =  dateStartDate.addHours(booking.getTime(), booking.getDuration());
                 int endTime = ((booking.getTime() + booking.getDuration()) % 24);
 
+
                 System.out.println("By " + booking.getBooker() + " from:");
                 System.out.println(+ dateStartDate.getDay() + " "
                         + dateStartDate.getMonth() + " " + dateStartDate.getYear()

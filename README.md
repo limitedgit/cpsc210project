@@ -24,5 +24,12 @@ This was so that every Date can be booked or unbooked, and this made it possible
 - In the Date class a Hashmap is used to associate a month and a day to create a calendar
 This hash map calendar was implemented so that if a room was booked for multiple hours or days, the correct end time could be calculated as it stored the days of each month of that year.
 
+## Phase 4: Task 3
+- 1. there is poor cohesion in that the GraphicsMenu class in the UI, which handles both creation of the main menu window and the panels which each button calls to. The purpose of the GraphicsMenu I wanted to be a main window that loads panels to display information. I felt that the initialization of the interface and actions of panels should be in a different class.
+- In order to improve this, I created a new Panels class which handles the initialization and actions of  non-main menu panels. This creates a clearer purpose for the GraphicsMenu class where it initializes the main menu and objects while it calls Panels to initialize and perform actions on the panels. 
+
+- 2. there is poor cohesion in that the GraphicsMenu class formats information within its methods to be printed for the two print screens (panels), when a list of the rooms are printed and when a list of room Bookings is printed. Before each of these, the method in the Main menu would structure the text (ex. room name: x id: x ...).  Since the purpose I wanted for the GraphicsMenu was a main window that loads panels to display information. I felt that text should be structured in a different class called to format this text, this way it would be easier to change the format in the future.
+- In order to improve this, I created a new Printer class that formats the text. The Printer has different methods which are named after which format they changed. Since I have over the actions of the panels to the Panels class, the Printer class is now called there.
+
 
 
