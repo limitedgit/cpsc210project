@@ -1,9 +1,7 @@
 package ui;
 
-import model.Booking;
+
 import model.Building;
-import model.Date;
-import model.Room;
 import persistence.Reader;
 import persistence.Writer;
 
@@ -62,6 +60,8 @@ public class GraphicsMenu extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+  //MODIFIES: this
+  //EFFECTS: responds to the actions performed by the users on the mian menu
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("print rooms")) {
             showPrintPanel();
@@ -84,6 +84,8 @@ public class GraphicsMenu extends JFrame implements ActionListener {
         }
     }
 
+  //MODIFIES: this
+  //EFFECTS: responds to the actions performed by the users in the panels
     public void roomActions(ActionEvent e) {
         if (e.getActionCommand().equals("addRoom")) {
             panels.addRoom();
@@ -169,7 +171,6 @@ public class GraphicsMenu extends JFrame implements ActionListener {
   // otherwise initializes accounts with default values
     private void loadBuilding() {
         try {
-
             Reader reader = new Reader(BUILDING_SER);
             this.b1 = (Building) reader.loadObject();
             reader.close();
@@ -186,7 +187,7 @@ public class GraphicsMenu extends JFrame implements ActionListener {
 
     }
 
-
+  //EFFECTS: main method of the graphic application
     public static void main(String[] args) {
         new GraphicsMenu();
     }

@@ -7,6 +7,7 @@ import model.Room;
 
 import javax.swing.*;
 
+// creates the extra panels and actions for the app
 public class Panels {
 
     Printer print = new Printer();
@@ -26,26 +27,33 @@ public class Panels {
     JPanel bookingPanel = new JPanel();
     JPanel clearBookingPanel = new JPanel();
 
+
+  //EFFECTS: returns the panel that displays the screen to print room bookings
     public JPanel getPrintBookingPanel() {
         return printBookingPanel;
     }
 
+  //EFFECTS: returns the panel that displays the screen to add rooms to the building
     public JPanel getAddRoomPanel() {
         return addRoomPanel;
     }
 
+  //EFFECTS: returns the panel that displays the screen to book rooms
     public JPanel getBookingPanel() {
         return bookingPanel;
     }
 
+  //EFFECTS: returns the panel that displays the screen to show current rooms
     public JPanel getPrintPanel() {
         return printPanel;
     }
 
+  //EFFECTS: returns the panel that displays the screen to remove rooms
     public JPanel getRemovePanel() {
         return removePanel;
     }
 
+  //EFFECTS: returns the panel that displays the screen to clear room bookings
     public JPanel getClearBookingPanel() {
         return clearBookingPanel;
     }
